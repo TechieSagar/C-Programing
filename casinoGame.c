@@ -65,10 +65,3 @@ void getGame(char input){
     }
 }
 
-void getInput(){
-    char input;
-    printf("Wrong input! Try again");
-    printf("\nChoose correct game: ");
-    scanf("%c", &input);
-    getGame(input);
-}
