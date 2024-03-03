@@ -2,13 +2,16 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-void getInput();
-void getGame(char);
+int getInput(char);
+void getGame(int);
 
 int main(){
 
     char input;
+    int result,userInput,getUserResult,getComputerResult;
+    srand(time(NULL));
 
     printf("\t\tWelcom to Casino Game\t\t");
     printf("\n");
@@ -24,44 +27,93 @@ int main(){
     printf("\n---------------------------------------------------------\n");
     printf("\n\n");
 
-    printf("Choose Any game from the above: "); // user need to choose alphabet like a b c etc..
+    printf("Choose Any one from A-F : "); // user needs to choose alphabet like a b c etc.. from a-f
     scanf("%c", &input);
     input = tolower(input);
-    getGame(input);
+    userInput=getInput(input);
+    //printf("%d",userInput);
+
+    
+    getUserResult = getInput(input);
+    getComputerResult = getSystemResult();
+
+    if(getUserResult!=getComputerResult){
+        printf("\nYou Loose\n\n");
+    } else{
+        printf("\nYou Won\n\n");
+    }
+
+    printf("Your Choice: ");
+    getGame(userInput);
+    printf("Computer Choice: ");
+    getGame(getComputerResult);
 
     return 0;
 }
 
-void getGame(char input){
-
+void getGame(int input){
+    int result;
     switch(input){
-        case 'a':
+        case 1:
             printf("\t\tDon\t\t\n");
+            //getA();
             break;
 
-        case 'b':
+        case 2:
             printf("\t\tAmar Akbar Anthony\t\t\n");
             break;
 
-        case 'c':
+        case 3:
             printf("\t\tSahib Biwi or Ghulam\t\t\n");
             break;
 
-        case 'd':
+        case 4:
             printf("\t\tDharam Veer\t\t\n");
             break;
 
-        case 'e':
+        case 5:
             printf("\t\tKiss Kiss Ko Pyar Karoon\t\t\n");
             break;
 
-        case 'f':
+        case 6:
             printf("\t\tGhulam\t\t\n");
             break;
 
         default:
-            printf("Wrong input! Try again");
+            //printf("Wrong input! Try again");
             break;
     }
+}
+
+void getA(){
+    printf("\tA-Don\n");
+    printf("\nGame Rules\nColors will be: Red and Black\nand only Card - A will be there\nYou need to bet on Color or outcomes of A:");
+}
+
+int getSystemResult(){
+    int result;
+    result = (rand()%6)+1;
+    return result;
+}
+
+int getInput(char n){
+    int input;
+    if(n=='a'){
+        input = 1;
+    } else if(n=='b'){
+        input =2;
+    } else if(n=='c'){
+        input = 3;
+    } else if(n=='d'){
+        input = 4;
+    } else if(n=='e'){
+        input=5;
+    } else if(n=='f'){
+        input = 6;
+    } else{
+        printf("wrong input! Try again");
+    }
+
+    return input;
 }
 
