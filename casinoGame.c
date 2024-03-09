@@ -1,40 +1,75 @@
 // 1st Project - Casino Game in C programming
 
 #include <stdio.h>
+#include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+
+
+struct UserData{
+    char name[50];
+    int balance;
+}users;
 
 int getInput(char);
 void getGame(int);
+void userFuction(int);
 
 int main(){
 
     char input;
+    int number;
     int result,userInput,getUserResult,getComputerResult;
+    FILE *fp;
     srand(time(NULL));
+    char fileContent[500];
 
     printf("\t\tWelcom to Casino Game\t\t");
     printf("\n");
     printf("---------------------------------------------------------\n");
     printf("|\t\t\t\t\t\t\t|\n");
-    printf("|\tA Don \t\t\t\t\t\t|\n");
-    printf("|\tB Amar Akbar Anthony \t\t\t\t|\n");
-    printf("|\tC Sahib Biwi or Ghulam \t\t\t\t|\n");
-    printf("|\tD Dharam Veer \t\t\t\t\t|\n");
-    printf("|\tE Kiss Kiss Ko Pyar Karoon \t\t\t|\n");
-    printf("|\tF Ghulam \t\t\t\t\t|\n");
+    printf("|\t1. Login \t\t\t\t\t|\n");
+    printf("|\t2. New User \t\t\t\t\t|\n");
+    printf("|\t3. Exit \t\t\t\t\t|\n");
+    //printf("|\t4. Dharam Veer \t\t\t\t\t|\n");
+    //printf("|\t5. Kiss Kiss Ko Pyar Karoon \t\t\t|\n");
+    //printf("|\t6. Ghulam \t\t\t\t\t|\n");
     printf("|\t\t\t\t\t\t\t|");
     printf("\n---------------------------------------------------------\n");
     printf("\n\n");
 
-    printf("Choose Any one from A-F : "); // user needs to choose alphabet like a b c etc.. from a-f
+    scanf("%d", &number);
+
+    userFuction(number);
+
+
+    /*
+    printf("\t\tWelcom to Casino Game\t\t");
+    printf("\n");
+    printf("---------------------------------------------------------\n");
+    printf("|\t\t\t\t\t\t\t|\n");
+    printf("|\t1. Don \t\t\t\t\t\t|\n");
+    printf("|\t2. Amar Akbar Anthony \t\t\t\t|\n");
+    printf("|\t3. Sahib Biwi or Ghulam \t\t\t\t|\n");
+    printf("|\t4. Dharam Veer \t\t\t\t\t|\n");
+    printf("|\t5. Kiss Kiss Ko Pyar Karoon \t\t\t|\n");
+    printf("|\t6. Ghulam \t\t\t\t\t|\n");
+    printf("|\t\t\t\t\t\t\t|");
+    printf("\n---------------------------------------------------------\n");
+    printf("\n\n");
+    */
+
+    
+
+    /*printf("Choose Any one from A-F : "); // user needs to choose alphabet like a b c etc.. from a-f
     scanf("%c", &input);
     input = tolower(input);
-    userInput=getInput(input);
+    userInput=getInput(input); */
     //printf("%d",userInput);
 
     
-    getUserResult = getInput(input);
+    /*getUserResult = getInput(input);
     getComputerResult = getSystemResult();
 
     if(getUserResult!=getComputerResult){
@@ -46,8 +81,9 @@ int main(){
     printf("Your Choice: ");
     getGame(userInput);
     printf("Computer Choice: ");
-    getGame(getComputerResult);
+    getGame(getComputerResult); */
 
+    //fclose (fp);
     return 0;
 }
 
@@ -115,5 +151,15 @@ int getInput(char n){
     }
 
     return input;
+}
+
+void userFuction(int number){
+    if(number==1){
+
+    } else if(number==2){
+
+    } else {
+        exit(1);
+    }
 }
 
