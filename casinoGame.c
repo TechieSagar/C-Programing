@@ -15,10 +15,14 @@ struct UserData{
 int getInput(char);
 void getGame(int);
 void userFuction(int);
+void userfuncionLogin();
+
 
 int main(){
 
     char input;
+    char ch;
+    char pass[20];
     int number;
     int result,userInput,getUserResult,getComputerResult;
     FILE *fp;
@@ -154,12 +158,49 @@ int getInput(char n){
 }
 
 void userFuction(int number){
-    if(number==1){
 
+    if(number==1){
+        userfuncionLogin();
     } else if(number==2){
 
     } else {
         exit(1);
     }
+}
+
+void userfuncionLogin(){
+    char ch;
+    char pass[20];
+    char saved_pass[20];
+    
+    int i=0;
+
+    start:
+    while(1){
+        ch = getch();
+        if(ch==13){
+            pass[i]='\0';
+            break;
+        }  else {
+            pass[i++]=ch;
+            printf("*");
+        }
+    }
+        printf("\nYou Entered : %s\n ", pass);
+
+        FILE* ptr;
+        ptr = fopen("userData.txt","r");
+        scanf(ptr,"%s",saved_pass);
+        fclose(ptr);
+
+        int l = strcmp(pass,saved_pass);
+
+        if(l==0){
+            printf("Login Successful\n");
+        } else {
+            printf("Wrong password\n");
+            goto start;
+        }
+    
 }
 
