@@ -6,88 +6,34 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#define MAX_BET 100
 
-struct UserData{
-    char name[50];
-    int balance;
-}users;
+// Define a struct to store user information
+struct User {
+    char username[20];
+    char password[20];
+    int betValue;
+};
 
+struct User existingUser,currentUser;
+
+// Methods prototype
 int getInput(char);
 void getGame(int);
-void userFuction(int);
-void userfuncionLogin();
+void userFuction();
+void userFuncionLogin();
+void userFunctionAddUser();
+void gameMenu();
+int getSystemResult();
+void getFinalResult();
 
-
+// Main Function
 int main(){
 
-    char input;
-    char ch;
-    char pass[20];
-    int number;
-    int result,userInput,getUserResult,getComputerResult;
-    FILE *fp;
-    srand(time(NULL));
-    char fileContent[500];
-
-    printf("\t\tWelcom to Casino Game\t\t");
-    printf("\n");
-    printf("---------------------------------------------------------\n");
-    printf("|\t\t\t\t\t\t\t|\n");
-    printf("|\t1. Login \t\t\t\t\t|\n");
-    printf("|\t2. New User \t\t\t\t\t|\n");
-    printf("|\t3. Exit \t\t\t\t\t|\n");
-    //printf("|\t4. Dharam Veer \t\t\t\t\t|\n");
-    //printf("|\t5. Kiss Kiss Ko Pyar Karoon \t\t\t|\n");
-    //printf("|\t6. Ghulam \t\t\t\t\t|\n");
-    printf("|\t\t\t\t\t\t\t|");
-    printf("\n---------------------------------------------------------\n");
-    printf("\n\n");
-
-    scanf("%d", &number);
-
-    userFuction(number);
-
-
-    /*
-    printf("\t\tWelcom to Casino Game\t\t");
-    printf("\n");
-    printf("---------------------------------------------------------\n");
-    printf("|\t\t\t\t\t\t\t|\n");
-    printf("|\t1. Don \t\t\t\t\t\t|\n");
-    printf("|\t2. Amar Akbar Anthony \t\t\t\t|\n");
-    printf("|\t3. Sahib Biwi or Ghulam \t\t\t\t|\n");
-    printf("|\t4. Dharam Veer \t\t\t\t\t|\n");
-    printf("|\t5. Kiss Kiss Ko Pyar Karoon \t\t\t|\n");
-    printf("|\t6. Ghulam \t\t\t\t\t|\n");
-    printf("|\t\t\t\t\t\t\t|");
-    printf("\n---------------------------------------------------------\n");
-    printf("\n\n");
-    */
-
     
 
-    /*printf("Choose Any one from A-F : "); // user needs to choose alphabet like a b c etc.. from a-f
-    scanf("%c", &input);
-    input = tolower(input);
-    userInput=getInput(input); */
-    //printf("%d",userInput);
-
+    userFuction();
     
-    /*getUserResult = getInput(input);
-    getComputerResult = getSystemResult();
-
-    if(getUserResult!=getComputerResult){
-        printf("\nYou Loose\n\n");
-    } else{
-        printf("\nYou Won\n\n");
-    }
-
-    printf("Your Choice: ");
-    getGame(userInput);
-    printf("Computer Choice: ");
-    getGame(getComputerResult); */
-
-    //fclose (fp);
     return 0;
 }
 
@@ -95,39 +41,33 @@ void getGame(int input){
     int result;
     switch(input){
         case 1:
-            printf("\t\tDon\t\t\n");
-            //getA();
+            printf("Don");
             break;
 
         case 2:
-            printf("\t\tAmar Akbar Anthony\t\t\n");
+            printf("Amar Akbar Anthony");
             break;
 
         case 3:
-            printf("\t\tSahib Biwi or Ghulam\t\t\n");
+            printf("Sahib Biwi or Ghulam");
             break;
 
         case 4:
-            printf("\t\tDharam Veer\t\t\n");
+            printf("Dharam Veer");
             break;
 
         case 5:
-            printf("\t\tKiss Kiss Ko Pyar Karoon\t\t\n");
+            printf("Kiss Kiss Ko Pyar Karoon");
             break;
 
         case 6:
-            printf("\t\tGhulam\t\t\n");
+            printf("Ghulam");
             break;
 
         default:
-            //printf("Wrong input! Try again");
+            printf("Wrong input! Try again");
             break;
     }
-}
-
-void getA(){
-    printf("\tA-Don\n");
-    printf("\nGame Rules\nColors will be: Red and Black\nand only Card - A will be there\nYou need to bet on Color or outcomes of A:");
 }
 
 int getSystemResult(){
@@ -136,71 +76,188 @@ int getSystemResult(){
     return result;
 }
 
-int getInput(char n){
-    int input;
-    if(n=='a'){
-        input = 1;
-    } else if(n=='b'){
-        input =2;
-    } else if(n=='c'){
-        input = 3;
-    } else if(n=='d'){
-        input = 4;
-    } else if(n=='e'){
-        input=5;
-    } else if(n=='f'){
-        input = 6;
-    } else{
-        printf("wrong input! Try again");
-    }
 
-    return input;
+void userFuction(){
+    int number;
+    while(1){
+        printf("\t\tWelcom to Casino Game\t\t");
+        printf("\n");
+        printf("---------------------------------------------------------\n");
+        printf("|\t\t\t\t\t\t\t|\n");
+        printf("|\t1. Login \t\t\t\t\t|\n");
+        printf("|\t2. New User \t\t\t\t\t|\n");
+        printf("|\t3. Exit \t\t\t\t\t|\n");
+        printf("|\t\t\t\t\t\t\t|");
+        printf("\n---------------------------------------------------------\n");
+        printf("\n");
+
+        printf("Enter your choice: ");
+        scanf("%d", &number);
+
+        if(number==1){
+            userFuncionLogin();
+            break;
+        } else if(number==2){
+            userFunctionAddUser();
+        } else {
+            exit(1);
+        }
+    }
+    
 }
 
-void userFuction(int number){
+void userFuncionLogin(){
+    char ch;
+    int i;
+    //struct User existingUser,currentUser;
 
-    if(number==1){
-        userfuncionLogin();
-    } else if(number==2){
+    FILE* fUserData;
+    FILE* fbetData;
 
-    } else {
+    fUserData = fopen("userData.txt","r");
+    fbetData = fopen("betValueData.txt", "r");
+
+    if (fUserData == NULL) {
+        printf("Could not open file %s\n", "userData.txt");
         exit(1);
     }
-}
 
-void userfuncionLogin(){
-    char ch;
-    char pass[20];
-    char saved_pass[20];
-    
-    int i=0;
+    fscanf(fUserData, "%s%s", existingUser.username, existingUser.password);
+    fscanf(fbetData, "%d", &existingUser.betValue);
+    fclose(fUserData);
+    fclose(fbetData);
 
-    start:
-    while(1){
+    // printf("%s",existingUser.username);
+    // printf("\n%s",existingUser.password);
+    // printf("\n%d", existingUser.betValue);
+
+    printf("\nEnter your username: ");
+    scanf("%s", currentUser.username);
+
+    printf("Enter your password: ");
+
+    // password hide with asteriks (*)
+    do {
         ch = getch();
-        if(ch==13){
-            pass[i]='\0';
-            break;
-        }  else {
-            pass[i++]=ch;
-            printf("*");
-        }
+        currentUser.password[i] = ch;
+        printf("*");
+        i++;
+    } while(ch != '\r');
+
+    currentUser.password[i-1] = '\0';
+
+    // printf("\n%s",currentUser.password);
+    // printf( "\n%s",currentUser.username );
+
+    if(strcmp(existingUser.username,currentUser.username)==0 && strcmp(existingUser.password,currentUser.password)==0 ) {
+            printf("\n\nHi %s\n",existingUser.username);
+            gameMenu();
+    } else {
+        printf("\nInvalid  Username or Password.\nPlease try again.");
+        userFuncionLogin();
     }
-        printf("\nYou Entered : %s\n ", pass);
 
-        FILE* ptr;
-        ptr = fopen("userData.txt","r");
-        scanf(ptr,"%s",saved_pass);
-        fclose(ptr);
+}  
 
-        int l = strcmp(pass,saved_pass);
+// Function to Add a user
+void userFunctionAddUser() {
+    
+    struct User newUser;
 
-        if(l==0){
-            printf("Login Successful\n");
-        } else {
-            printf("Wrong password\n");
-            goto start;
-        }
+    printf("Enter a username: ");
+    scanf("%s", newUser.username);
+
+    printf("Enter a password: ");
+    scanf("%s", newUser.password);
+
+    // Add the new user to the file
+    FILE* fp;
+    fp = fopen("userData.txt","w");
+
+    if (fp == NULL) {
+        printf("Could not open file %s\n", "userData.txt");
+        exit(1);
+    }
+
+    fprintf(fp, "%s\n%s", newUser.username, newUser.password);
+    fclose(fp);
+
+    printf("\nUser added successfully.\n\n");
+}
+
+void gameMenu(){
+    printf("\t\tWelcom to Casino Game\t\t");
+    printf("\n");
+    printf("---------------------------------------------------------\n");
+    printf("|\t\t\t\t\t\t\t|\n");
+    printf("|\t1. Don \t\t\t\t\t\t|\n");
+    printf("|\t2. Amar Akbar Anthony \t\t\t\t|\n");
+    printf("|\t3. Sahib Biwi or Ghulam \t\t\t|\n");
+    printf("|\t4. Dharam Veer \t\t\t\t\t|\n");
+    printf("|\t5. Kiss Kiss Ko Pyar Karoon \t\t\t|\n");
+    printf("|\t6. Ghulam \t\t\t\t\t|\n");
+    printf("|\t\t\t\t\t\t\t|");
+    printf("\n---------------------------------------------------------\n");
+    printf("\n\n");
+
+    getFinalResult();
+
+}
+
+void getFinalResult(){
+    int input;
+    int result,userInput,getUserResult,getComputerResult;
+    char again;
+    do
+    {
+        
+    printf("Your Balance : %d\n\n", existingUser.betValue);
+    printf("Place bet on games with Rs. [10-100] : ");
+    scanf("%d", &currentUser.betValue);
+
+    while(currentUser.betValue < 10 || currentUser.betValue > 100){
+        printf("Invalid input! Please enter between 10 and 100.");
+        printf("\nPlease try again:\n");
+        scanf("%d", &currentUser.betValue);
+    }
+
+    printf("Enter your bet (1-6): ");
+    scanf("%d",&input);
+    getUserResult = input;
+    getComputerResult = getSystemResult();
+
+    if(getUserResult!=getComputerResult){
+        printf("\nYou Loose\n\n");
+        existingUser.betValue = existingUser.betValue-currentUser.betValue;
+        FILE* fp;
+        fp = fopen("betValueData.txt","w");
+
+        fprintf(fp, "%d", existingUser.betValue);
+        fclose(fp);
+    } else{
+        printf("\nYou Won\n\n");
+        existingUser.betValue = existingUser.betValue+currentUser.betValue;
+        FILE* fp;
+        fp = fopen("betValueData.txt","w");
+
+        fprintf(fp, "%d", existingUser.betValue);
+        fclose(fp);
+    }
+
+    printf("Your Choice: ");
+    getGame(input);
+    printf("\nComputer Choice: ");
+    getGame(getComputerResult); 
+
+    printf("\nYour Balance : %d\n\n", existingUser.betValue);
+
+    printf("Do you want to play again? (y/n): ");
+    scanf(" %c", &again);
+
+    } while(again == 'y');
+
     
 }
+
+
 
